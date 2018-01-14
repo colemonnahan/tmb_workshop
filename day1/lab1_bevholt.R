@@ -2,10 +2,10 @@
 ## lectures: http://www.nielsensweb.org/bergen/
 library(TMB)
 
-compile("../TMB_models/bevholt.cpp")
-dyn.load(dynlib("../TMB_models/bevholt"))
+compile("tmb_models/bevholt.cpp")
+dyn.load(dynlib("tmb_models/bevholt"))
 
-dat <- read.table("../TMB_models/bevholt.dat", header=TRUE)
+dat <- read.table("tmb_models/bevholt.dat", header=TRUE)
 data <- list(SSB=dat$ssb,logR=dat$logR)
 parameters <- list(logA=0, logB=0)
 
@@ -74,7 +74,7 @@ for(i in 1:Nsim){
   data$logR <- logR.expected+error
   obj <- MakeADFun(data,parameters,DLL="bevholt")
   obj$env$beSilent()
-  opt <- nlminb(obj$par,obj$fn,obj$gr)
+  opt <- nlminb(obj$par, obj$fn, obj$gr)
   mles[i,] <- opt$par
   ses[i,] <- sqrt(diag(sdreport(obj)$cov.fixed))
   ## Coverage is whether the confidence interval covers the true
