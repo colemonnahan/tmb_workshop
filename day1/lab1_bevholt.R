@@ -20,6 +20,12 @@ obj$gr()
 
 
 
+
+
+
+
+
+
 ### --------------------------------------------------
 ### Exercise answers
 opt <- nlminb(obj$par,obj$fn,obj$gr)
