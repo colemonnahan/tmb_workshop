@@ -14,18 +14,6 @@ obj$env$beSilent() # silences console output
 obj$fn()
 obj$gr()
 
-
-
-
-
-
-
-
-
-
-
-
-
 ### --------------------------------------------------
 ### Exercise answers
 opt <- nlminb(obj$par,obj$fn,obj$gr)
@@ -34,6 +22,7 @@ logA <- opt$par[1]
 logB <- opt$par[2]
 plot(dat$ssb,dat$logR)
 ssb <- seq(0, 300000, len=1000)
+ssb <- data$SSB
 ## Predicted logR:
 logR <- logA+log(ssb)-log(1+exp(logB)*ssb)
 lines(ssb, logR, lwd=3)

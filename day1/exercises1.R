@@ -7,15 +7,6 @@ obj <- MakeADFun(data=list(), parameters=list(x=0), DLL='polynomial')
 obj$fn(5)
 obj$gr(5)
 
-
-
-
-
-
-
-
-
-
 ## Solution
 x <- seq(-3,2, len=200)
 y <- g <- rep(NA, 200)
@@ -29,8 +20,6 @@ plot(x,y, type='l', lwd=2, main='Height', ylab='fn')
 plot(x,g, type='l', lwd=2, main='Derivative', ylab='gr')
 abline(h=0)
 dev.off()
-
-
 
 ## Exercise 2 solution: Poisson likelihood
 k <- 4
