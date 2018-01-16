@@ -32,7 +32,7 @@ data <- list(Nfish=N, Nobs=nrow(dat), loglengths=dat$loglengths,
 saveRDS(file='tmb_models/growth_data.RDS', data)
 
 
-## Growth model with common parameters
+## Exercise 1: Growth model with common parameters
 data <- readRDS('tmb_models/growth_data.RDS')
 parameters <- list(logsigma=0, logLinf=3, logk=-2)
 data$ages_pred <- 6:40
@@ -42,14 +42,15 @@ obj <- MakeADFun(data=data, parameters=parameters, DLL='growth')
 obj$env$beSilent()
 opt <- nlminb(obj$par, obj$fn, obj$gr)
 rep <- sdreport(obj)
-(mles <- opt$par)
+(mles <- rep$value)
+ses <- rep$sd
 plot(data$ages, exp(data$loglengths), cex=.5)
 lines(data$ages_pred, mles, lwd=2)
 lines(data$ages_pred, mles-1.96*ses, lty=2)
 lines(data$ages_pred, mles+1.96*ses, lty=2)
 
 
-## Exercise 2: independent parameters
+## Exercise 2: Growth model with independent parameters
 N <- 20
 data <- readRDS('tmb_models/growth_data.RDS')
 data$ages_pred <- 6:40
