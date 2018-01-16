@@ -5,26 +5,27 @@
 template<class Type>
 Type objective_function<Type>::operator() ()
 {
-  DATA_VECTOR(SSB)
+  DATA_VECTOR(SSB);
   DATA_VECTOR(logR);
 
   PARAMETER(logA);
   PARAMETER(logB);
+  PARAMETER(logsigma);
 
-    // We use log transforms to keep parameters positive
+  // We use log transforms to keep parameters positive
   Type B=exp(logB);
-  Type sigma=0.4; // fixed for now
+  Type sigma=exp(logsigma);
 
-  // Loop through each observed SSB and predict logR.
-  int N=SSB.size();
-  vector<Type> pred(N); // predictions for each row
-  for(int i=0; i<=N; i++){
-    pred(i)=logA+log(SSB(i))-log(Type(1)+B*SSB(i));
-  }
-
+  // Vectorized calculation of prediction vector
+  vector<Type> pred= logA+log(SSB)-log(Type(1)+B*SSB);
   // negative log-likelihood
   // Note: using vector calculations so need to sum them
-  Type nll=-dnorm(logR,pred,sigma,true).sum();
+  Type nll=-dnorm(logR,pred, sigma, true).sum();
+
+  // Reporting
+  Type A=exp(logA);
+  ADREPORT(A);
+  ADREPORT(B);
 
   return nll;
 }
