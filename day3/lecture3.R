@@ -29,7 +29,7 @@ plot(prof, main="Likelihood profile for logsigma")
 -dnorm(0,0,1e-9,T)
 
 ## Remake with random effects turned on
-obj <- MakeADFun(data=data, parameters=pars, random="D", DLL='poisson')
+obj <- MakeADFun(data=data, parameters=pars, random=c('b',"D"), DLL='poisson')
 obj$fn()
 obj$gr()
 opt <- with(obj, nlminb(par, fn, gr))

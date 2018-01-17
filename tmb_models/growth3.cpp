@@ -3,7 +3,6 @@
 template<class Type>
 Type objective_function<Type>::operator() ()
 {
-  DATA_INTEGER(Nfish);	   // number of fish
   DATA_INTEGER(Nobs);	   // number of total observations (rows)
   DATA_VECTOR(loglengths); // observed lengths in log space
   DATA_FACTOR(fish);	   // factor relating observation to fish
@@ -12,6 +11,8 @@ Type objective_function<Type>::operator() ()
 
   // fixed effects
   PARAMETER(logsigma_obs);	// observation variance
+  
+  // random effect vectors
   PARAMETER_VECTOR(logLinf);	// L infinity in log space
   PARAMETER_VECTOR(logk);	// growth k in log space
 
@@ -36,10 +37,8 @@ Type objective_function<Type>::operator() ()
   }
 
   Type nll=0.0; // negative log likelihood initialized at 0
-
   // likelihood of data
   nll-=dnorm(ypred, loglengths, sigma_obs, true).sum();
-
   // probabilities of the random effects
   nll-=dnorm(logk, mean_logk, sigma_logk, true).sum();
   nll-=dnorm(logLinf, mean_logLinf, sigma_logLinf, true).sum();
