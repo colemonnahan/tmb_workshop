@@ -26,6 +26,7 @@ pars <- list(beta0=4, beta1=0, beta2=0, beta3=0, tau=rep(0,40), logsigma_tau=0)
 compile( "tmb_models/falcons.cpp" )
 dyn.load( dynlib("tmb_models/falcons") )
 obj = MakeADFun(data=dat, parameters=pars, random='tau', DLL="falcons")
+obj$fn()
 obj$env$beSilent()
 opt <- with(obj, nlminb(par, fn, gr))
 opt$par
@@ -72,6 +73,7 @@ obj3 = MakeADFun(data=dat, parameters=pars,
                  random=c('tau','beta1', 'beta0'),
                  DLL="falcons", map=map)
 obj3$env$beSilent()
+obj3$gr()
 opt3 <- with(obj3, nlminb(par, fn, gr))
 ## Compare estimates of variances. Notice that the REML version is
 ## bigger. This is because ML estimates of variances are underestimated

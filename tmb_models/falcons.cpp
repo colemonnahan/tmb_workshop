@@ -31,7 +31,7 @@ Type objective_function<Type>::operator() ()
     pred(i)=exp(linpred);
   }
 
-  Type nll= -dpois(pairs, pred, true).sum();
+  Type nll = -dpois(pairs, pred, true).sum();
   nll -= dnorm(tau, 0, sigma_tau, true).sum();
   // Reporting
   REPORT(pred);

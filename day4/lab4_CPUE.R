@@ -58,8 +58,8 @@ partition <- sample( x=1:K, size=length(data$y), replace=TRUE )
 data = list(likelihood=2, y=pollock$catch, lat=pollock$lat, lon=pollock$long)
 predNLL <- rep(NA, K)
 ## Try different maps options. Which has the lowest mean predicted error? 
-map <- list(beta_lat=factor(NA), beta_lon=factor(NA))
-#map <- list()
+#map <- list(beta_lat=factor(NA), beta_lon=factor(NA))
+map <- list()
 for(k in 1:K){
   ## Resample which data points to exclude from NLL calculation (10%)
   data$out_sample <- ifelse(partition==k,0,1)
