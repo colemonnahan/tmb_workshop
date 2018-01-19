@@ -42,7 +42,7 @@ c(AIC1, AIC2)
 rep <- obj$report()
 y <- data$y
 yhat <- rep$pred
-pollock$resids <- (yhat-log(y))/rep$sigma
+pollock$resids.nospace <- (yhat-log(y))/rep$sigma
 ggplot(pollock, aes(long, lat, size=abs(resids), color=resids)) +
   geom_point(alpha=.5)+ scale_color_gradient(low='red', high='blue') +
   scale_size_area(max_size=4)
