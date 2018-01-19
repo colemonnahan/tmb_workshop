@@ -92,6 +92,7 @@ ggplot(resids, aes(long, lat, size=abs(value), color=value)) +
 ### Part 2: Bayesian inference
 ## We return to the swallows mark-recapture model and refit as a Bayesian
 ## model using Stan
+library(TMB)
 data <- readRDS('tmb_models/swallows.RDS')
 pars <- list(sigmayearphi=0,
          sigmaphi=0,
